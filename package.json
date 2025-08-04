@@ -1,0 +1,25 @@
+{
+  "name": "ontezo-db-migration",
+  "version": "1.0.0",
+  "description": "Database migration tool for converting old MySQL data to new PostgreSQL schema",
+  "main": "migration-script.js",
+  "scripts": {
+    "start": "node migration-script.js",
+    "migrate": "node migration-script.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "database",
+    "migration",
+    "mysql",
+    "postgresql",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
