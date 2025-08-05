@@ -1,1 +1,432 @@
-{}
+{
+  "Comments": {
+    "target_table": "comments",
+    "pk": "id",
+    "column_mapping": {
+      "comment": "content",
+      "createdAt": "created_at",
+      "documents": "attachment",
+      "edit": "is_edited",
+      "employee_id": "team_member_id",
+      "entityId": "parent_comment_id",
+      "id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Departments": {
+    "target_table": "tenants",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Designations": {
+    "target_table": "permissions",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "EmailCampaignLogs": {
+    "target_table": "webhook_events",
+    "pk": "id",
+    "column_mapping": {
+      "campaignId": "id",
+      "createdAt": "created_at",
+      "id": "id",
+      "retryCount": "retry_count",
+      "status": "status",
+      "updatedAt": "updated_at"
+    }
+  },
+  "EmailTemplates": {
+    "target_table": "plans",
+    "pk": "id",
+    "column_mapping": {
+      "additional_data": "features",
+      "createdAt": "created_at",
+      "createdBy": "id",
+      "id": "id",
+      "is_active": "is_active",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Employees": {
+    "target_table": "users",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "email": "email",
+      "id": "id",
+      "is_active": "is_active",
+      "is_profile_completed": "is_deleted",
+      "joining_date": "updated_at",
+      "phone": "timezone",
+      "role_id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Labels": {
+    "target_table": "plans",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "LeadSources": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "LeadStatuses": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Leads": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "client_id": "id",
+      "createdAt": "created_at",
+      "description": "designation",
+      "id": "id",
+      "lead_owner_id": "created_by_id",
+      "lead_source_id": "created_by_id",
+      "lead_status_id": "created_by_id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "LeadsClients": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "client_name": "name",
+      "company_name": "company_name",
+      "createdAt": "created_at",
+      "id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "LeadsEmployees": {
+    "target_table": "clients",
+    "pk": "createdAt",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "employee_id": "id",
+      "lead_id": "created_by_id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "LeadsReminders": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "activity_date": "updated_at",
+      "createdAt": "created_at",
+      "id": "id",
+      "lead_id": "created_by_id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Logs": {
+    "target_table": "audit_logs",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "projectId": "action",
+      "updatedAt": "updated_at",
+      "userId": "id"
+    }
+  },
+  "MeetingMinutes": {
+    "target_table": "test_cases",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "description": "description",
+      "id": "id",
+      "meeting_id": "task_id",
+      "title": "title",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Notes": {
+    "target_table": "test_cases",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "description": "description",
+      "id": "id",
+      "title": "title",
+      "updatedAt": "updated_at",
+      "userId": "id"
+    }
+  },
+  "Permissions": {
+    "target_table": "permissions",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "display_name": "name",
+      "id": "id",
+      "permission_name": "permission_type",
+      "updatedAt": "updated_at"
+    }
+  },
+  "ProjectEmployees": {
+    "target_table": "projects",
+    "pk": "createdAt",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "project_id": "name",
+      "updatedAt": "updated_at",
+      "user_id": "id"
+    }
+  },
+  "ProjectServices": {
+    "target_table": "projects",
+    "pk": "createdAt",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "project_id": "name",
+      "service_id": "id",
+      "services_id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Projects": {
+    "target_table": "projects",
+    "pk": "id",
+    "column_mapping": {
+      "client_id": "clientId",
+      "client_name": "name",
+      "createdAt": "created_at",
+      "description": "description",
+      "documents": "documents",
+      "end_date": "end_date",
+      "id": "name",
+      "isSprint": "is_sprint_project",
+      "lead_id": "created_by_id",
+      "name": "name",
+      "revenue": "clientId",
+      "start_date": "start_date",
+      "status": "status",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Reactions": {
+    "target_table": "subscriptions",
+    "pk": "id",
+    "column_mapping": {
+      "comment_id": "user_id",
+      "createdAt": "created_at",
+      "employee_id": "plan_id",
+      "id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "RecipientGroups": {
+    "target_table": "clients",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "description": "designation",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "RolePermissions": {
+    "target_table": "permissions",
+    "pk": "createdAt",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "permission_id": "id",
+      "role_id": "id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Roles": {
+    "target_table": "roles",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "description": "description",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "ScrumMeetingJoinees": {
+    "target_table": "invites",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "employee_id": "tenant_id",
+      "id": "id",
+      "scrum_meeting_id": "invited_by_id",
+      "updatedAt": "updated_at"
+    }
+  },
+  "ScrumMeetings": {
+    "target_table": "time_logs",
+    "pk": "id",
+    "column_mapping": {
+      "created_by": "id",
+      "createdAt": "created_at",
+      "date": "updated_at",
+      "end_time": "end_time",
+      "id": "id",
+      "start_time": "start_time",
+      "until_date": "updated_at",
+      "updatedAt": "updated_at"
+    }
+  },
+  "SequelizeMeta": {
+    "target_table": "sprint_statuses",
+    "pk": "name",
+    "column_mapping": {
+      "name": "name"
+    }
+  },
+  "Services": {
+    "target_table": "phases",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Skills": {
+    "target_table": "menu",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "group_by": "group_by",
+      "id": "id",
+      "name": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Sprints": {
+    "target_table": "sprints",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "duration": "duration",
+      "end_date": "end_date",
+      "id": "name",
+      "project_id": "name",
+      "start_date": "start_date",
+      "status": "name",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Statuses": {
+    "target_table": "sprint_statuses",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "name": "name",
+      "order": "order",
+      "updatedAt": "updated_at"
+    }
+  },
+  "Tasks": {
+    "target_table": "tasks",
+    "pk": "id",
+    "column_mapping": {
+      "assigned_to": "created_by_id",
+      "createdAt": "created_at",
+      "description": "description",
+      "end_date": "updated_at",
+      "estimated_hours": "id",
+      "id": "id",
+      "parent_id": "parent_task_id",
+      "priority": "priority",
+      "project_id": "title",
+      "sprint_id": "title",
+      "start_date": "start_date",
+      "status": "status",
+      "tags": "tags",
+      "updatedAt": "updated_at"
+    }
+  },
+  "TestCases": {
+    "target_table": "test_cases",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "description": "description",
+      "id": "id",
+      "is_completed": "isChecked",
+      "task_id": "task_id",
+      "test_case_id": "title",
+      "updatedAt": "updated_at"
+    }
+  },
+  "TimeLogs": {
+    "target_table": "time_logs",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "end_date": "updated_at",
+      "id": "id",
+      "logging_date": "updated_at",
+      "start_date": "start_time",
+      "task_id": "task_id",
+      "time_spent": "id",
+      "updatedAt": "updated_at",
+      "user_id": "team_member_id"
+    }
+  },
+  "UserPreferences": {
+    "target_table": "users",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "id": "id",
+      "project_id": "email",
+      "updatedAt": "updated_at",
+      "user_id": "id"
+    }
+  },
+  "media": {
+    "target_table": "media",
+    "pk": "id",
+    "column_mapping": {
+      "createdAt": "created_at",
+      "entity_type": "file_name",
+      "id": "id",
+      "name": "file_name",
+      "size": "file_name",
+      "type": "file_name",
+      "updatedAt": "updated_at",
+      "url": "url"
+    }
+  }
+}

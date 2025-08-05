@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { connectMySQL } from '../db/mysql.js';
 import { connectPostgres } from '../db/postgres.js';
+import { mapId, getMappedId } from './idMapper.js';
 
 /**
  * Fetches column types from Postgres for validation
@@ -22,9 +23,9 @@ async function getPostgresColumns(pgDB, tableName) {
 }
 
 /**
- * Safely converts a value according to Postgres column type
+ * Safely converts a value according to Postgres column type with enhanced handling
  */
-function convertValue(value, colType) {
+function convertValueWithEnhancedHandling(value, colType) {
   if (value === null || value === undefined) return null;
 
   // Handle string primary keys (UUIDs) - don't convert them to numbers
@@ -63,6 +64,23 @@ function convertValue(value, colType) {
     return null;
   }
 
+  // Handle JSON values more robustly
+  if (colType.includes('json')) {
+    try {
+      if (typeof value === 'string') {
+        // Try to parse JSON strings
+        const parsed = JSON.parse(value);
+        return parsed;
+      } else if (typeof value === 'object') {
+        // Return objects as-is
+        return value;
+      }
+    } catch (e) {
+      // If JSON parsing fails, return null or empty object
+      return {};
+    }
+  }
+
   return value; // default: string or text
 }
 
@@ -85,8 +103,18 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
 
   console.log('🚀 Starting ERP Migration...');
 
-  // 1️⃣ First pass: Migrate tables without foreign key dependencies
-  for (const [sourceTable, tableMap] of Object.entries(mappings)) {
+  // 1️⃣ Analyze table dependencies to determine migration order
+  const tableDependencies = await analyzeTableDependencies(mysqlDB, pgDB, mappings);
+
+  // 2️⃣ Sort tables by dependency order (tables with no dependencies first)
+  const sortedTables = topologicalSort(tableDependencies);
+
+  // 3️⃣ Create tenants first if needed
+  await createTenantsIfNeeded(pgDB, mappings);
+
+  // 4️⃣ Migrate tables in dependency order
+  for (const sourceTable of sortedTables) {
+    const tableMap = mappings[sourceTable];
     const targetTable = tableMap.target_table;
     console.log(`🔹 Migrating: ${sourceTable} -> ${targetTable}`);
 
@@ -102,7 +130,7 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
     const pkIsStringInSource = await checkIfPrimaryKeyIsString(mysqlDB, sourceTable, pkColumn);
     const pkIsIntInTarget = targetCols[pkColumn]?.type.includes('int');
 
-    // 2️⃣ Fetch rows from MySQL in batches
+    // 5️⃣ Fetch rows from MySQL in batches
     let offset = 0;
     while (true) {
       const rows = await mysqlDB.select('*').from(sourceTable).limit(batch).offset(offset);
@@ -132,7 +160,7 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
 
           const colType = targetCols[tgtCol].type;
           const rawValue = row[srcCol];
-          let safeValue = convertValue(rawValue, colType);
+          let safeValue = convertValueWithEnhancedHandling(rawValue, colType);
 
           // Handle nullable columns more gracefully
           let finalValue = safeValue;
@@ -164,6 +192,9 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
           insertRow[tgtCol] = finalValue;
         }
 
+        // Handle required fields for specific tables
+        await handleRequiredFieldsForTable(targetTable, insertRow, row, mysqlDB, pgDB);
+
         // Only skip row if it would violate primary key constraints
         if (Object.values(insertRow).every(val => val === null || val === '')) {
           fs.appendFileSync(errorLogPath, `Skipping empty row in ${targetTable}\n`);
@@ -172,7 +203,7 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
         }
       }
 
-      // 3️⃣ Insert into Postgres and track ID mapping
+      // 6️⃣ Insert into Postgres and track ID mapping
       if (!dryRun && validInserts.length) {
         try {
           // Insert rows individually to get better error reporting and track new IDs
@@ -205,9 +236,10 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
     console.log(`✅ Completed: ${sourceTable} -> ${targetTable}`);
   }
 
-  // 2️⃣ Second pass: Update foreign key relationships
+  // 7️⃣ Update foreign key relationships
   console.log('🔄 Updating foreign key relationships...');
-  for (const [sourceTable, tableMap] of Object.entries(mappings)) {
+  for (const sourceTable of sortedTables) {
+    const tableMap = mappings[sourceTable];
     const targetTable = tableMap.target_table;
 
     // Get Postgres column types
@@ -234,8 +266,8 @@ export async function migrateAll({ mysql, postgres, batch, mapping, dryRun }) {
       for (const { srcCol, tgtCol } of fkColumns) {
         const oldFkValue = row[tgtCol];
         if (oldFkValue) {
-          // Check if this is a string UUID that needs to be mapped
-          if (typeof oldFkValue === 'string' && oldFkValue.includes('-')) {
+          // Check if this is a string that needs to be mapped
+          if (typeof oldFkValue === 'string') {
             // Find the referenced table and get the new ID
             const refTable = Object.keys(mappings).find(t =>
               mappings[t].target_table === tgtCol.replace('_id', '')

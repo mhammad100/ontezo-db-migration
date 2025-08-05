@@ -161,33 +161,38 @@ function areTypesCompatible(srcType, tgtType) {
   const srcBaseType = srcType.split('(')[0].toLowerCase();
   const tgtBaseType = tgtType.split('(')[0].toLowerCase();
 
-  // String types
-  if (['char', 'varchar', 'text', 'string'].includes(srcBaseType) &&
-      ['char', 'varchar', 'text', 'string'].includes(tgtBaseType)) {
+  // String types - MySQL to PostgreSQL
+  const mysqlStringTypes = ['char', 'varchar', 'text', 'string', 'tinytext', 'mediumtext', 'longtext'];
+  const pgStringTypes = ['char', 'varchar', 'text', 'string', 'character varying', 'character'];
+
+  if (mysqlStringTypes.includes(srcBaseType) && pgStringTypes.includes(tgtBaseType)) {
     return true;
   }
 
   // Numeric types
-  if (['int', 'integer', 'bigint', 'smallint'].includes(srcBaseType) &&
-      ['int', 'integer', 'bigint', 'smallint'].includes(tgtBaseType)) {
+  const numericTypes = ['int', 'integer', 'bigint', 'smallint', 'decimal', 'numeric', 'float', 'double', 'real'];
+  if (numericTypes.includes(srcBaseType) && numericTypes.includes(tgtBaseType)) {
     return true;
   }
 
-  // Decimal types
-  if (['decimal', 'numeric', 'float', 'double'].includes(srcBaseType) &&
-      ['decimal', 'numeric', 'float', 'double'].includes(tgtBaseType)) {
+  // Date/Time types - MySQL to PostgreSQL
+  const mysqlDateTypes = ['date', 'datetime', 'timestamp', 'time'];
+  const pgDateTypes = ['date', 'datetime', 'timestamp', 'time', 'timestamp without time zone', 'timestamp with time zone'];
+
+  if (mysqlDateTypes.includes(srcBaseType) && pgDateTypes.includes(tgtBaseType)) {
     return true;
   }
 
-  // Date/Time types
-  if (['date', 'datetime', 'timestamp'].includes(srcBaseType) &&
-      ['date', 'datetime', 'timestamp'].includes(tgtBaseType)) {
+  // Boolean types - MySQL tinyint(1) to PostgreSQL boolean
+  const mysqlBoolTypes = ['bool', 'boolean', 'tinyint'];
+  const pgBoolTypes = ['bool', 'boolean', 'tinyint'];
+
+  if (mysqlBoolTypes.includes(srcBaseType) && pgBoolTypes.includes(tgtBaseType)) {
     return true;
   }
 
-  // Boolean types
-  if (['bool', 'boolean', 'tinyint'].includes(srcBaseType) &&
-      ['bool', 'boolean', 'tinyint'].includes(tgtBaseType)) {
+  // JSON types
+  if (srcBaseType === 'json' && tgtBaseType === 'json') {
     return true;
   }
 

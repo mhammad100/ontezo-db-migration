@@ -1,3 +1,1807 @@
 {
-    
+  "tables": {
+    "Comments": {
+      "columns": {
+        "comment": {
+          "type": "longtext",
+          "nullable": false,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "documents": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "edit": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "employee_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "entityId": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "entityType": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Departments": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Designations": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "EmailCampaignLogs": {
+      "columns": {
+        "campaignId": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "email": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "reason": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "retryCount": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "EmailCampaigns": {
+      "columns": {
+        "campaignStatus": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdBy": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "text",
+          "nullable": true,
+          "primary_key": false
+        },
+        "emailTemplateId": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "failedEmails": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "failedEmailsCount": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "isRecurring": {
+          "type": "tinyint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "recipientGroupId": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "retryCount": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "scheduledAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "sentAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "successEmails": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "successEmailsCount": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "type": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "EmailTemplates": {
+      "columns": {
+        "additional_data": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "body": {
+          "type": "text",
+          "nullable": true,
+          "primary_key": false
+        },
+        "cover_image": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdBy": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_active": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "subject": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Employees": {
+      "columns": {
+        "address": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "avatar": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "city": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "country": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "department": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "designation": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "email": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "experience": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "full_name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "hourly_rate": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_active": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_profile_completed": {
+          "type": "tinyint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "joining_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "monthly_salary": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "note": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "operating_cost": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "phone": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "role_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "skills": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "JobQueues": {
+      "columns": {
+        "actual_hours": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "assigned_to": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "comment": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "estimated_hours": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "github_link": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "priority": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Labels": {
+      "columns": {
+        "bgColor": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "fontColor": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "LeadSources": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "LeadStatuses": {
+      "columns": {
+        "color": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Leads": {
+      "columns": {
+        "budget": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "client_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "documents": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "lead_owner_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "lead_source_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "lead_status_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_title": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "LeadsClients": {
+      "columns": {
+        "client_name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "company_name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "contact_details": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "country": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "LeadsEmployees": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "employee_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        },
+        "lead_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "LeadsReminders": {
+      "columns": {
+        "activity_date": {
+          "type": "datetime",
+          "nullable": false,
+          "primary_key": false
+        },
+        "activity_time": {
+          "type": "time",
+          "nullable": false,
+          "primary_key": false
+        },
+        "content": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_sent": {
+          "type": "tinyint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "lead_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "notes": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "priority": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "reminder_time": {
+          "type": "time",
+          "nullable": false,
+          "primary_key": false
+        },
+        "reminder_type": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "Logs": {
+      "columns": {
+        "content": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "entityId": {
+          "type": "char",
+          "nullable": true,
+          "primary_key": false
+        },
+        "entityType": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "projectId": {
+          "type": "char",
+          "nullable": true,
+          "primary_key": false
+        },
+        "subEntityType": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "userId": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "MeetingMinutes": {
+      "columns": {
+        "attendees": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "text",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "meeting_date": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "meeting_duration": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "meeting_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "meeting_time": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "summary": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Notes": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "isPinned": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "projectId": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "title": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "userId": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "Permissions": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "display_name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "group_by": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_active": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "permission_name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "ProjectEmployees": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        }
+      }
+    },
+    "ProjectServices": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": true
+        },
+        "service_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        },
+        "services_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Projects": {
+      "columns": {
+        "budget": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "client_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "client_name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "cost": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "documents": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": true
+        },
+        "isSprint": {
+          "type": "tinyint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "lead_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "revenue": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Reactions": {
+      "columns": {
+        "comment_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "employee_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "reaction": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "RecipientGroups": {
+      "columns": {
+        "additional_data": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_csv_uploaded": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_ids": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "RolePermissions": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_active": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "permission_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        },
+        "role_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Roles": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_active": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "ScrumMeetingJoinees": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "employee_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_present": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "scrum_meeting_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "ScrumMeetings": {
+      "columns": {
+        "created_by": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_time": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "exception_dates": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_default_pattern": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_recurring": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "joinees": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": true,
+          "primary_key": false
+        },
+        "recurring_type": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "room_data": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "room_name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_time": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "until_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "SequelizeMeta": {
+      "columns": {
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": true
+        }
+      }
+    },
+    "Services": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_deleted": {
+          "type": "tinyint",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Skills": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "group_by": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Sprints": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "duration": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "goal": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": true
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Statuses": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "entityId": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "entityType": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "order": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "Tasks": {
+      "columns": {
+        "actual_hours": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "assigned_to": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "longtext",
+          "nullable": true,
+          "primary_key": false
+        },
+        "documents": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "estimated_hours": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "labels": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "parent_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        },
+        "priority": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "sprint_id": {
+          "type": "char",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "tags": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "TestCases": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "group_by": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "is_completed": {
+          "type": "tinyint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "test_case_id": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "type": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "TimeLogs": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "logging_date": {
+          "type": "datetime",
+          "nullable": false,
+          "primary_key": false
+        },
+        "remarks": {
+          "type": "varchar",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        },
+        "time_spent": {
+          "type": "float",
+          "nullable": true,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "UserPreferences": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "project_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "int",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "media": {
+      "columns": {
+        "createdAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "entity_id": {
+          "type": "char",
+          "nullable": false,
+          "primary_key": false
+        },
+        "entity_type": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id": {
+          "type": "int",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "name": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "size": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "type": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "nullable": true,
+          "primary_key": false
+        },
+        "url": {
+          "type": "varchar",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    }
+  }
 }

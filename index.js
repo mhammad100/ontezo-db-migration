@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { migrateAll } from './src/migration/migrateAll.js';
 import { generateMapping } from './src/utils/autoMapper.js';
 import { validateAndModifyMapping } from './src/utils/validateMapping.js';
+import { extractSchema } from './src/schema/introspect.js';
 import { connectMySQL } from './src/db/mysql.js';
 import { connectPostgres } from './src/db/postgres.js';
 
@@ -28,14 +29,21 @@ dotenv.config();
     const mysqlDB = connectMySQL(mysqlPath);
     const pgDB = connectPostgres(postgresPath);
 
+    // 1️⃣ Extract schemas from both databases
+    console.log('🔹 Extracting source database schema...');
+    await extractSchema(mysqlDB, './source_schema.json');
+
+    console.log('🔹 Extracting target database schema...');
+    await extractSchema(pgDB, './target_schema.json');
+
     if (autoMap) {
       console.log('🔹 Generating suggested mapping...');
-      await generateMapping(mysqlDB, pgDB, './mapping_suggested.json');
+      await generateMapping(mysqlDB, pgDB, mappingPath);
     }
 
     if (validate) {
       console.log('🔹 Validating mapping before migration...');
-      await validateAndModifyMapping(pgDB, mappingPath);
+      await validateAndModifyMapping(mysqlDB, pgDB, mappingPath);
     }
 
     if(migrate || dryRun){
@@ -47,7 +55,7 @@ dotenv.config();
         mapping: mappingPath,
         dryRun: dryRun
       });
-  
+
     }
     await mysqlDB.destroy();
     await pgDB.destroy();

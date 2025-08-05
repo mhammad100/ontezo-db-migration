@@ -1,3 +1,2012 @@
 {
-    
+  "tables": {
+    "typeorm_migrations": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "timestamp": {
+          "type": "bigint",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "webhook_events": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "event_type": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "payload": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "source": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "target_url": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "retry_count": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "error_message": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "invites": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "email": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "token": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "roleId": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "invited_by_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "tenant_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "roles": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "label": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "role_type": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "feature": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "tenant_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "role_permissions": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "role_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "permission_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "is_global": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        }
+      }
+    },
+    "permissions": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "permission_type": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "feature": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "tenants": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "ownerId": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "email": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "subdomain": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "database_name": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "database_host": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "database_user": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "database_pwd": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "projects": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "slug": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "project_duration": {
+          "type": "USER-DEFINED",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_sprint_project": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "clientId": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "documents": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false
+        },
+        "created_by_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "project_statuses": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "display_name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "order": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "users": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "email": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "password": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "otp_code": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "timezone": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_email_verified": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "is_password_forget": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "last_login": {
+          "type": "timestamp with time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_agree_terms": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "otp_expiry": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "tenant_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_active": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "is_deleted": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        }
+      }
+    },
+    "clients": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "designation": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "phone": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "email": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "company_name": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "company_phone": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "company_email": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "created_by_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "checklists": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "phase_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "checklist_items": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "is_checked": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "checklist_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "phases": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "comments": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "content": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "attachment": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "parent_comment_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "tag": {
+          "type": "USER-DEFINED",
+          "nullable": true,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "is_edited": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        }
+      }
+    },
+    "tasks": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "slug": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "start_date": {
+          "type": "date",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "due_date": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false
+        },
+        "priority": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "tags": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "sprint_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "parent_task_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "story_point": {
+          "type": "numeric",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "created_by_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "sprint_status_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_status_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "team_members": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "joinin_date": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "monthly_salary": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "department": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "designation": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "skills": {
+          "type": "json",
+          "nullable": true,
+          "primary_key": false
+        },
+        "experience": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "created_by_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "sprints": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_date": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false
+        },
+        "end_date": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false
+        },
+        "duration": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "old_id": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "status": {
+          "type": "USER-DEFINED",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "sprint_statuses": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "display_name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "order": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "sprint_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "media": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "file_name": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "original_name": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "mime_type": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "size": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "url": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "type": {
+          "type": "USER-DEFINED",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "tag": {
+          "type": "USER-DEFINED",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "bucket": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "key": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "thumbnail": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "created_by_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "media_records": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "media_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "comment_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "audit_logs": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "action": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "timestamp": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "project_id": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "use_cases": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "isChecked": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "test_cases": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "title": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "isChecked": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "steps": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "expected_result": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "actual_result": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "time_logs": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "start_time": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false
+        },
+        "end_time": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "hours": {
+          "type": "double precision",
+          "nullable": true,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "user_links": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "url": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "type": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "platform": {
+          "type": "USER-DEFINED",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "task_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "user_auth_providers": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "provider": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "socialId": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "userId": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "user_preferences": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "category": {
+          "type": "USER-DEFINED",
+          "nullable": false,
+          "primary_key": false
+        },
+        "value": {
+          "type": "text",
+          "nullable": true,
+          "primary_key": false
+        },
+        "user_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "userId": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "user_profiles": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "full_name": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "phone": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "date_of_birth": {
+          "type": "date",
+          "nullable": true,
+          "primary_key": false
+        },
+        "address": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "city": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "state": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "postal_code": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "country": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "profile_picture": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_profile_complete": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "user_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "subscriptions": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "stripe_subscription_id": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "stripe_customer_id": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "features": {
+          "type": "json",
+          "nullable": false,
+          "primary_key": false
+        },
+        "status": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "current_period_start": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false
+        },
+        "current_period_end": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false
+        },
+        "canceled_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "cancel_at_period_end": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "stripe_price_id": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "amount": {
+          "type": "numeric",
+          "nullable": false,
+          "primary_key": false
+        },
+        "currency": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "is_trialing": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "user_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "plan_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "plans": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "stripe_price_id": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "stripe_product_id": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "description": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "price_per_unit_amount": {
+          "type": "numeric",
+          "nullable": false,
+          "primary_key": false
+        },
+        "currency": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "interval": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "is_active": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "features": {
+          "type": "json",
+          "nullable": false,
+          "primary_key": false
+        },
+        "trial_period_days": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_custom": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        }
+      }
+    },
+    "menu": {
+      "columns": {
+        "id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": true,
+          "auto_increment": true
+        },
+        "created_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "updated_at": {
+          "type": "timestamp without time zone",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "deleted_at": {
+          "type": "timestamp without time zone",
+          "nullable": true,
+          "primary_key": false
+        },
+        "name": {
+          "type": "character varying",
+          "nullable": false,
+          "primary_key": false
+        },
+        "icon": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "route": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "is_visible": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "is_active": {
+          "type": "boolean",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "order": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false,
+          "auto_increment": false
+        },
+        "group_by": {
+          "type": "character varying",
+          "nullable": true,
+          "primary_key": false
+        },
+        "parentId": {
+          "type": "integer",
+          "nullable": true,
+          "primary_key": false
+        }
+      }
+    },
+    "project_assignees": {
+      "columns": {
+        "project_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "task_assignees": {
+      "columns": {
+        "task_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "team_member_id": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "user_roles": {
+      "columns": {
+        "usersId": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "rolesId": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    },
+    "menu_closure": {
+      "columns": {
+        "id_ancestor": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        },
+        "id_descendant": {
+          "type": "integer",
+          "nullable": false,
+          "primary_key": false
+        }
+      }
+    }
+  }
 }
