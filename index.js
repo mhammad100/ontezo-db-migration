@@ -1,45 +1,58 @@
 #!/usr/bin/env node
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import dotenv from 'dotenv';
 import { migrateAll } from './src/migration/migrateAll.js';
 import { generateMapping } from './src/utils/autoMapper.js';
-import { validateMapping } from './src/utils/validateMapping.js';
+import { validateAndModifyMapping } from './src/utils/validateMapping.js';
 import { connectMySQL } from './src/db/mysql.js';
 import { connectPostgres } from './src/db/postgres.js';
 
-const argv = yargs(hideBin(process.argv))
-  .option('mysql', { type: 'string', demandOption: true })
-  .option('postgres', { type: 'string', demandOption: true })
-  .option('batch', { type: 'number', default: 5000 })
-  .option('mapping', { type: 'string', default: './mapping.json' })
-  .option('dryRun', { type: 'boolean', default: false })
-  .option('autoMap', { type: 'boolean', default: false })
-  .option('validate', { type: 'boolean', default: false })
-  .argv;
+// Load environment variables from .env file
+dotenv.config();
 
 (async () => {
-  const mysqlDB = connectMySQL(argv.mysql);
-  const pgDB = connectPostgres(argv.postgres);
+  try {
+    // Get configuration from environment variables
+    const mysqlPath = process.env.SQL_PATH;
+    const postgresPath = process.env.PG_PATH;
+    const mappingPath = process.env.MAPPING_PATH || './mapping.json';
+    const batchSize = parseInt(process.env.BATCH_SIZE) || 5000;
+    const dryRun = process.env.DRY_RUN === 'true';
+    const autoMap = process.env.AUTO_MAP === 'true';
+    const validate = process.env.VALIDATE === 'true';
+    const migrate = process.env.MIGRATE === 'true';
 
-  if (argv.autoMap) {
-    console.log('🔹 Generating suggested mapping...');
-    await generateMapping(mysqlDB, pgDB, './mapping_suggested.json');
+    if (!mysqlPath || !postgresPath) {
+      throw new Error('Database connection strings are not properly configured in .env file');
+    }
+
+    const mysqlDB = connectMySQL(mysqlPath);
+    const pgDB = connectPostgres(postgresPath);
+
+    if (autoMap) {
+      console.log('🔹 Generating suggested mapping...');
+      await generateMapping(mysqlDB, pgDB, './mapping_suggested.json');
+    }
+
+    if (validate) {
+      console.log('🔹 Validating mapping before migration...');
+      await validateAndModifyMapping(pgDB, mappingPath);
+    }
+
+    if(migrate || dryRun){
+      console.log('🚀 Starting migration...');
+      await migrateAll({
+        mysql: mysqlPath,
+        postgres: postgresPath,
+        batch: batchSize,
+        mapping: mappingPath,
+        dryRun: dryRun
+      });
+  
+    }
     await mysqlDB.destroy();
     await pgDB.destroy();
-    process.exit(0);
+  } catch (error) {
+    console.error('❌ Migration failed:', error.message);
+    process.exit(1);
   }
-
-  if (argv.validate) {
-    console.log('🔹 Validating mapping before migration...');
-    await validateMapping(pgDB, argv.mapping);
-    await mysqlDB.destroy();
-    await pgDB.destroy();
-    process.exit(0);
-  }
-
-  console.log('🚀 Starting migration...');
-  await migrateAll(argv);
-
-  await mysqlDB.destroy();
-  await pgDB.destroy();
 })();

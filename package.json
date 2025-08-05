@@ -1,22 +1,24 @@
 {
-  "name": "migration-tool",
+  "name": "db-migration-tool",
   "version": "1.0.0",
+  "description": "Database migration tool with AI-enhanced mapping",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "migrate": "node index.js",
+    "generate-mapping": "node index.js --autoMap true",
+    "validate": "node index.js --validate true"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "chalk": "^5.3.0",
-    "knex": "^3.1.0",
-    "lodash": "^4.17.21",
-    "mysql2": "^3.6.0",
-    "ora": "^6.1.2",
-    "pg": "^8.11.1",
+    "dotenv": "^16.0.0",
+    "knex": "^2.0.0",
+    "mysql2": "^2.3.3",
+    "pg": "^8.7.3",
     "string-similarity": "^4.0.4",
-    "yargs": "^17.7.2"
-  }
+    "typeorm": "^0.3.6",
+    "yargs": "^17.3.1"
+  },
+  "author": "",
+  "license": "ISC"
 }

@@ -1,46 +1,217 @@
 import fs from 'fs';
+import stringSimilarity from 'string-similarity';
 
-export async function validateMapping(pgDB, mappingFile) {
-  console.log(`🔹 Validating mapping file: ${mappingFile}`);
+/**
+ * AI-enhanced mapping validator and modifier
+ * @param {*} mysqlDB Knex instance for MySQL
+ * @param {*} pgDB Knex instance for PostgreSQL
+ * @param {*} mappingFile Path to mapping file
+ * @param {*} sourceSchemaFile Path to source schema JSON
+ * @param {*} targetSchemaFile Path to target schema JSON
+ */
+export async function validateAndModifyMapping(
+  mysqlDB,
+  pgDB,
+  mappingFile = './mapping.json',
+  sourceSchemaFile = './source_schema.json',
+  targetSchemaFile = './target_schema.json'
+) {
+  console.log('🔹 Validating and modifying mapping with AI...');
 
+  // 1️⃣ Load mapping and schema files
   const mapping = JSON.parse(fs.readFileSync(mappingFile, 'utf-8'));
+  const sourceSchema = JSON.parse(fs.readFileSync(sourceSchemaFile, 'utf-8'));
+  const targetSchema = JSON.parse(fs.readFileSync(targetSchemaFile, 'utf-8'));
 
-  // Get all tables and columns in Postgres ERP
-  const tables = await pgDB('information_schema.tables')
-    .select('table_name')
-    .where({ table_schema: 'public' });
+  // 2️⃣ Get table and column information from schemas
+  const sourceTables = Object.keys(sourceSchema.tables || {});
+  const targetTables = Object.keys(targetSchema.tables || {});
 
-  const tableNames = tables.map(t => t.table_name);
+  // 3️⃣ Validate and modify mapping
+  const modifiedMapping = {};
+  const unmappedSourceTables = [];
+  const unmappedTargetTables = [...targetTables];
 
-  const columns = {};
-  for (const t of tableNames) {
-    const cols = await pgDB('information_schema.columns')
-      .select('column_name')
-      .where({ table_schema: 'public', table_name: t });
-    columns[t] = cols.map(c => c.column_name);
-  }
-
-  let hasError = false;
-
-  for (const [sourceTable, mappingDef] of Object.entries(mapping)) {
-    const targetTable = mappingDef.target_table;
-    if (!tableNames.includes(targetTable)) {
-      console.error(`❌ Target table '${targetTable}' does not exist in Postgres schema.`);
-      hasError = true;
+  for (const [sourceTable, tableMap] of Object.entries(mapping)) {
+    // Check if source table exists in source schema
+    if (!sourceTables.includes(sourceTable)) {
+      console.warn(`⚠️ Source table ${sourceTable} not found in source schema`);
+      continue;
     }
 
-    for (const destCol of Object.values(mappingDef.column_mapping)) {
-      if (!columns[targetTable]?.includes(destCol)) {
-        console.error(`❌ Column '${destCol}' does not exist in target table '${targetTable}'.`);
-        hasError = true;
+    // Get target table from mapping
+    let targetTable = tableMap.target_table;
+
+    // If no target table or it doesn't exist, find the best match
+    if (!targetTable || !targetTables.includes(targetTable)) {
+      const bestMatch = stringSimilarity.findBestMatch(sourceTable, targetTables);
+      targetTable = bestMatch.bestMatch.rating > 0.3 ? bestMatch.bestMatch.target : '';
+
+      if (!targetTable) {
+        unmappedSourceTables.push(sourceTable);
+        continue;
       }
     }
+
+    // Remove from unmapped target tables list
+    unmappedTargetTables.splice(unmappedTargetTables.indexOf(targetTable), 1);
+
+    // Get source and target columns
+    const sourceColumns = Object.keys(sourceSchema.tables[sourceTable].columns || {});
+    const targetColumns = Object.keys(targetSchema.tables[targetTable].columns || {});
+
+    // Validate and modify column mapping
+    const modifiedColumnMapping = {};
+    const unmappedSourceColumns = [];
+    const unmappedTargetColumns = [...targetColumns];
+
+    for (const [srcCol, tgtCol] of Object.entries(tableMap.column_mapping || {})) {
+      // Check if source column exists
+      if (!sourceColumns.includes(srcCol)) {
+        console.warn(`⚠️ Source column ${srcCol} not found in ${sourceTable}`);
+        continue;
+      }
+
+      // Check if target column exists
+      if (!targetColumns.includes(tgtCol)) {
+        // Find best match for target column
+        const bestMatch = stringSimilarity.findBestMatch(srcCol, targetColumns);
+        const bestTargetCol = bestMatch.bestMatch.rating > 0.4 ? bestMatch.bestMatch.target : '';
+
+        if (bestTargetCol) {
+          modifiedColumnMapping[srcCol] = bestTargetCol;
+          unmappedTargetColumns.splice(unmappedTargetColumns.indexOf(bestTargetCol), 1);
+        } else {
+          unmappedSourceColumns.push(srcCol);
+        }
+        continue;
+      }
+
+      // Remove from unmapped columns lists
+      unmappedSourceColumns.splice(unmappedSourceColumns.indexOf(srcCol), 1);
+      unmappedTargetColumns.splice(unmappedTargetColumns.indexOf(tgtCol), 1);
+
+      // Check data type compatibility
+      const srcType = sourceSchema.tables[sourceTable].columns[srcCol].type;
+      const tgtType = targetSchema.tables[targetTable].columns[tgtCol].type;
+
+      if (!areTypesCompatible(srcType, tgtType)) {
+        console.warn(`⚠️ Incompatible types for ${srcCol} (${srcType}) -> ${tgtCol} (${tgtType})`);
+        // Find compatible column
+        const compatibleCol = findCompatibleColumn(srcCol, srcType, targetColumns, targetSchema.tables[targetTable].columns);
+        if (compatibleCol) {
+          modifiedColumnMapping[srcCol] = compatibleCol;
+        } else {
+          unmappedSourceColumns.push(srcCol);
+        }
+      } else {
+        modifiedColumnMapping[srcCol] = tgtCol;
+      }
+    }
+
+    // Add unmapped source columns if they have compatible target columns
+    for (const srcCol of unmappedSourceColumns) {
+      const srcType = sourceSchema.tables[sourceTable].columns[srcCol].type;
+      const compatibleCol = findCompatibleColumn(srcCol, srcType, unmappedTargetColumns, targetSchema.tables[targetTable].columns);
+
+      if (compatibleCol) {
+        modifiedColumnMapping[srcCol] = compatibleCol;
+        unmappedTargetColumns.splice(unmappedTargetColumns.indexOf(compatibleCol), 1);
+      }
+    }
+
+    // Determine primary key
+    let primaryKey = tableMap.pk || '';
+    if (!sourceColumns.includes(primaryKey)) {
+      // Find primary key in source table
+      primaryKey = sourceColumns.find(col => col.toLowerCase().includes('id')) || sourceColumns[0] || '';
+    }
+
+    modifiedMapping[sourceTable] = {
+      target_table: targetTable,
+      pk: primaryKey,
+      column_mapping: modifiedColumnMapping
+    };
   }
 
-  if (hasError) {
-    console.error('❌ Mapping validation failed. Please fix the mapping.json file.');
-    process.exit(1);
-  } else {
-    console.log('✅ Mapping validation successful. Ready for migration.');
+  // 4️⃣ Save modified mapping
+  fs.writeFileSync(mappingFile, JSON.stringify(modifiedMapping, null, 2));
+
+  // 5️⃣ Generate report
+  const report = {
+    modified_mapping: mappingFile,
+    unmapped_source_tables: unmappedSourceTables,
+    unmapped_target_tables: unmappedTargetTables,
+    summary: `Modified mapping saved to ${mappingFile}\n` +
+             `Unmapped source tables: ${unmappedSourceTables.length}\n` +
+             `Unmapped target tables: ${unmappedTargetTables.length}`
+  };
+
+  console.log('✅ Mapping validation and modification complete');
+  console.log(report.summary);
+
+  return report;
+}
+
+/**
+ * Check if data types are compatible
+ */
+function areTypesCompatible(srcType, tgtType) {
+  // Basic type compatibility rules
+  const srcBaseType = srcType.split('(')[0].toLowerCase();
+  const tgtBaseType = tgtType.split('(')[0].toLowerCase();
+
+  // String types
+  if (['char', 'varchar', 'text', 'string'].includes(srcBaseType) &&
+      ['char', 'varchar', 'text', 'string'].includes(tgtBaseType)) {
+    return true;
   }
+
+  // Numeric types
+  if (['int', 'integer', 'bigint', 'smallint'].includes(srcBaseType) &&
+      ['int', 'integer', 'bigint', 'smallint'].includes(tgtBaseType)) {
+    return true;
+  }
+
+  // Decimal types
+  if (['decimal', 'numeric', 'float', 'double'].includes(srcBaseType) &&
+      ['decimal', 'numeric', 'float', 'double'].includes(tgtBaseType)) {
+    return true;
+  }
+
+  // Date/Time types
+  if (['date', 'datetime', 'timestamp'].includes(srcBaseType) &&
+      ['date', 'datetime', 'timestamp'].includes(tgtBaseType)) {
+    return true;
+  }
+
+  // Boolean types
+  if (['bool', 'boolean', 'tinyint'].includes(srcBaseType) &&
+      ['bool', 'boolean', 'tinyint'].includes(tgtBaseType)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Find compatible column by name and type
+ */
+function findCompatibleColumn(srcCol, srcType, targetColumns, targetColumnInfo) {
+  // First try to find by name similarity
+  const nameMatches = stringSimilarity.findBestMatch(srcCol, targetColumns);
+  const bestNameMatch = nameMatches.bestMatch.rating > 0.4 ? nameMatches.bestMatch.target : '';
+
+  if (bestNameMatch && areTypesCompatible(srcType, targetColumnInfo[bestNameMatch].type)) {
+    return bestNameMatch;
+  }
+
+  // If no good name match, try to find by type only
+  for (const tgtCol of targetColumns) {
+    if (areTypesCompatible(srcType, targetColumnInfo[tgtCol].type)) {
+      return tgtCol;
+    }
+  }
+
+  return '';
 }
