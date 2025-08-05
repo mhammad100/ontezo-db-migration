@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne, JoinColumn, Index } from 'typeorm';
 import Model from './base.entity';
 import { Task } from './task.entity';
 import { TeamMember } from './team-member';
-import { Platform } from '@/common/enums/platform.enum';
+import { Platform } from '../common/enums/platform.enum';
 
 @Entity('user_links')
 @Index(['id', 'taskId', 'teamMemberId'])

@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import Model from './base.entity';
-import { MediaType, Tag } from '@/common/enums/media.enum';
+import { MediaType, Tag } from '../common/enums/media.enum';
 import { User } from './user.entity';
 import { MediaRecord } from './media-record.entity';
 

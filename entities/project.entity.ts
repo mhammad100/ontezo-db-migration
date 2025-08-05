@@ -18,7 +18,7 @@ import { Comment } from './comment.entity';
 import { User } from './user.entity';
 import { Sprint } from './sprint.entity';
 import { MediaRecord } from './media-record.entity';
-import { ProjectDuration } from '@/common/enums/projects.enum';
+import { ProjectDuration } from '../common/enums/projects.enum';
 import { AuditLog } from './audit.entity';
 @Entity('projects')
 @Index(['id', 'name', 'slug'])

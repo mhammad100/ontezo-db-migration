@@ -10,7 +10,7 @@ import Model from './base.entity';
 import { Task } from './task.entity';
 import { Project } from './project.entity';
 import { TeamMember } from './team-member';
-import { Tag } from '@/common/enums/comment.enum';
+import { Tag } from '../common/enums/comment.enum';
 
 @Entity('comments')
 @Index('idx_comment_content', ['content'])

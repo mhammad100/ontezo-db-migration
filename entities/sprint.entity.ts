@@ -3,7 +3,7 @@ import Model from './base.entity';
 import { Project } from './project.entity';
 import { Task } from './task.entity';
 import { SprintStatus } from './sprint-status.entity';
-import { SprintStatuses } from '@/common/enums/sprints.enum';
+import { SprintStatuses } from '../common/enums/sprints.enum';
 
 @Entity('sprints')
 export class Sprint extends Model {

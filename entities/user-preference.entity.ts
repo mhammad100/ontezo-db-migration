@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
-import { Preferences } from '@/common/enums/prefrences.enum';
+import { Preferences } from '../common/enums/prefrences.enum';
 import Model from './base.entity';
 
 @Entity('user_preferences')
